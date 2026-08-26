@@ -1,6 +1,6 @@
 /*
  * BISECTION METHOD ALGORITHM
- * Step 1: Choose 2 real numbers x1 and x2 such that f(x1) * f(x2) < 0, 
+ * Step 1: Choose 2 real numbers x1 and x2 such that f(x1) * f(x2) < 0,
  *         and define a stopping criterion E.
  * Step 2: Define the root x0 = (x1 + x2) / 2.
  * Step 3: Find f(x0).
@@ -46,7 +46,7 @@ void BISECTION_METHOD(double x1, double x2)
           {
                x1 = x0;
           }
-          
+
           error = abs((x2 - x1) / x2);
           cout << "Root is : " << x0 << endl;
      }
