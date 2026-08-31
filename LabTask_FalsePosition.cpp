@@ -6,8 +6,13 @@ double coff[5];
 
 double f(double x)
 {
-    double res = coff[4] * pow(x, 4) + coff[3] * pow(x, 3) + coff[2] * pow(x, 2) + coff[1] * pow(x, 1) + coff[0];
-    return res;
+     double res = 0.0;
+     for (int i = 4; i >= 0; i--)
+     {
+          res += coff[i] * pow(x, i);
+     }
+
+     return res;
 }
 
 double FALSE_POSITION_METHOD(double x1, double x2, int &itr)
