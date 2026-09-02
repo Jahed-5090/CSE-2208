@@ -26,13 +26,14 @@ double f(double x)
 
 void SECANT_METHOD(double x0, double x1)
 {
-    double x_prev = x0;   // x_{n-1}
-    double xn     = x1;   // x_n
+    double x_prev = x0; // x_{n-1}
+    double xn = x1;     // x_n
     double x_next;
     int itr = 0;
 
     cout << "Starting Secant Method with x0 = " << x0
-         << ", x1 = " << x1 << "\n" << endl;
+         << ", x1 = " << x1 << "\n"
+         << endl;
 
     while (true)
     {
@@ -49,13 +50,13 @@ void SECANT_METHOD(double x0, double x1)
         }
 
         // Step 2: Secant formula
-        x_next = xn - f_curr * (xn - x_prev) / (f_curr - f_prev);
+        x_next = xn - f_curr * ((xn - x_prev) / (f_curr - f_prev));
 
         cout << "Iteration " << itr
              << " : x_(n-1) = " << x_prev
-             << ", x_n = "      << xn
-             << ", f(x_n) = "   << f_curr
-             << ", x_(n+1) = "  << x_next << endl;
+             << ", x_n = " << xn
+             << ", f(x_n) = " << f_curr
+             << ", x_(n+1) = " << x_next << endl;
 
         // Step 3: stopping criterion
         if (fabs(x_next - xn) < E)
@@ -67,7 +68,7 @@ void SECANT_METHOD(double x0, double x1)
 
         // Otherwise shift the window forward and repeat
         x_prev = xn;
-        xn     = x_next;
+        xn = x_next;
     }
 }
 
@@ -80,7 +81,8 @@ int main()
     bool found = false;
 
     cout << "Searching interval [-100, 100] (step " << step_size
-         << ") for x0, x1 with f(x0)*f(x1) < 0 ...\n" << endl;
+         << ") for x0, x1 with f(x0)*f(x1) < 0 ...\n"
+         << endl;
 
     while (a < 100.0)
     {
@@ -91,7 +93,8 @@ int main()
             x1 = b;
             found = true;
             cout << "Found x0 = " << x0 << ", x1 = " << x1
-                 << "  (f(x0)*f(x1) = " << f(x0) * f(x1) << " < 0)\n" << endl;
+                 << "  (f(x0)*f(x1) = " << f(x0) * f(x1) << " < 0)\n"
+                 << endl;
             break;
         }
         a = b;
@@ -104,7 +107,8 @@ int main()
         x0 = 0.0;
         x1 = 1.0;
         cout << "No sign-changing pair found in [-100, 100]. "
-             << "Defaulting to x0 = 0, x1 = 1.\n" << endl;
+             << "Defaulting to x0 = 0, x1 = 1.\n"
+             << endl;
     }
 
     SECANT_METHOD(x0, x1);
