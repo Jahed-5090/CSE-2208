@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <iomanip>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 // Evaluates the polynomial f(x) = a_n*x^n + a_{n-1}*x^{n-1} + ... + a_1*x + a_0
