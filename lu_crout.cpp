@@ -170,3 +170,18 @@ int main()
  * in a permutation vector/matrix P, so the factorisation becomes
  * P*A = L*U instead of plain A = L*U.
  */
+ 
+ /*
+ 
+ for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+     int sum = 0; 
+     for(int k=0;k<n;k++) {
+       sum += L[j][k]*U[k][i] ;
+     } 
+       L[i][j] = A[i][j]-sum ;
+    }
+ 
+ 
+ 
+ */
