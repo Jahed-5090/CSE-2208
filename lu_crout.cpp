@@ -1,50 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
- * LU DECOMPOSITION METHOD -- CROUT'S METHOD (Triangularisation Method)
- * -----------------------------------------------------------------------
- * A = L * U, where:
- *   L : lower triangular, GENERAL diagonal (l11, l22, l33, ... are unknowns)
- *   U : upper triangular, UNIT diagonal   (u11 = u22 = u33 = ... = 1)
- *
- * This is the opposite convention from Doolittle's method (which fixes
- * L's diagonal to 1 instead). Crout's method is the one used in this
- * lecture.
- *
- * FOUR STEPS, EVERY TIME (per the slide "Four steps, every time"):
- *   Step 1: Write A = LU -- set up L and U in Crout form, with the
- *           unknown entries as symbols.
- *   Step 2: Multiply and compare -- carry out L x U and equate each
- *           entry to the matching entry of A. Solve the resulting
- *           equations in order: first row of A, then second, then third.
- *   Step 3: Forward substitution -- solve L Z = B from the top down to
- *           obtain the intermediate vector Z.
- *   Step 4: Back substitution -- solve U X = Z from the bottom up to
- *           obtain x, y, z (the final solution).
- *
- * NOTE (from the slide): Steps 1 and 2 depend only on A. If the
- * right-hand side B changes, you only need to repeat Steps 3 and 4.
- *
- * GENERAL FORMULAS for an n x n system (generalising the slide's
- * row-by-row 3x3 equations "l11 = a11", "l11*u12 = a12", ... ):
- *
- *   For each column j = 0 .. n-1:
- *     For i = j .. n-1:
- *         L[i][j] = A[i][j] - sum_{k=0}^{j-1} L[i][k] * U[k][j]
- *     U[j][j] = 1
- *     For i = j+1 .. n-1:
- *         U[j][i] = ( A[j][i] - sum_{k=0}^{j-1} L[j][k] * U[k][i] ) / L[j][j]
- *
- * This computes L's column j (using previously found columns), then
- * U's row j (using L[j][j] just computed) -- exactly mirroring how the
- * slide solves "first row of A", "second row of A", "third row of A"
- * in order, since each new unknown only depends on ones already found.
- */
 
 int n;
 
-// Step 1 + Step 2: build L and U by equating L*U with A, row by row
+
 void decompose(vector<vector<double>> &A, vector<vector<double>> &L, vector<vector<double>> &U)
 {
     for (int j = 0; j < n; j++)
@@ -160,28 +120,3 @@ int main()
 
     return 0;
 }
-
-/*
- * ADDING PARTIAL PIVOTING (robustness improvement, not required by the
- * basic algorithm above): before eliminating column j, swap the current
- * row with whichever row below it has the largest |A[row][j]|. This
- * avoids dividing by a zero or tiny pivot L[j][j], and keeps the method
- * numerically stable for ill-conditioned matrices. Track the row swaps
- * in a permutation vector/matrix P, so the factorisation becomes
- * P*A = L*U instead of plain A = L*U.
- */
- 
- /*
- 
- for(int i=0;i<n;i++){
-    for(int j=0;j<n;j++){
-     int sum = 0; 
-     for(int k=0;k<n;k++) {
-       sum += L[j][k]*U[k][i] ;
-     } 
-       L[i][j] = A[i][j]-sum ;
-    }
- 
- 
- 
- */
