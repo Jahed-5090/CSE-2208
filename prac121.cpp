@@ -1,83 +1,28 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <bits/stdc++.h> 
+using namespace std ;  
+ 
+// Least Square Regression: Transcendental Equation
+// Fits T = a + b * f(t), where f(t) = e^(t/4)   [example form from the lecture slide]
+//
+// The trick from the slide: a transcendental equation like this is turned
+// into a straight line by treating f(t) as if it were "x". Once we see it
+// that way, we reuse the exact same two formulas as linear regression.
 
-int n;
 
-int GuassJordan(vector<vector<double>> &AugMat, vector<double> &X)
-{
+int main() { 
 
-     for (int j = 0; j < n; j++)
-     {
+    int n = 7 ; 
 
-          double pivot = AugMat[j][j];
+    double t[] = {1, 2, 3, 4, 5};
+    double T[] = {50, 80, 96, 120, 145}; 
 
-          for (int k = 0; k <= n; k++)
-               AugMat[j][k] /= pivot;
+    for(int i=0;i<n;i++) {
+        
+    }
 
-          for (int i = 0; i < n; i++)
-          {
-               if (i == j)
-                    continue;
+   
+    
 
-               double ratio = AugMat[i][j] / AugMat[j][j];
 
-               for (int k = 0; k <= n; k++)
-               {
-                    AugMat[i][k] = AugMat[i][k] - (ratio * AugMat[j][k]);
-               }
-          }
-     }
-
-     int rankA = 0;
-     int rankAB = 0;
-
-     for (int i = 0; i < n; i++)
-     {
-          bool nonzeroA = false;
-          bool nonzeroAB = false;
-
-          for (int j = 0; j < n; j++)
-          {
-               if (AugMat[i][j] > 1e-9)
-               {
-                    nonzeroA = true;
-                    nonzeroAB = true;
-                    break;
-               }
-          }
-          if (AugMat[i][n] > 1e-9)
-          {
-               nonzeroAB = true;
-          }
-
-          if (nonzeroA)
-          {
-               rankA++;
-          }
-          if (nonzeroAB)
-               rankAB++;
-     }
-
-     if (rankA < rankAB)
-     {
-          return -1;
-     }
-     else if (rankA == rankAB && rankA < n)
-     {
-          return 0;
-     }
-     else
-     {
-          for (int i = 0; i < n; i++)
-          {
-               X[i] = AugMat[i][n];
-          }
-          return 1;
-     }
-}
-
-int main()
-{
-
-     return 0;
+    return 0  ; 
 }

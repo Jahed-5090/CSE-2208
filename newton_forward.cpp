@@ -3,34 +3,8 @@ using namespace std;
 
 /*
  * NEWTON'S FORWARD INTERPOLATION
- * -----------------------------------------------------------------------
- * Used when x is near the BEGINNING of the table (slide: "Newton's
- * Forward Interpolation"). Requires EQUALLY SPACED x values.
- *
- *   h  = x1 - x0  (common spacing)
- *   u  = (x - x0) / h
- *
- *   y = y0 + u*Dy0 + u(u-1)/2! * D^2y0 + u(u-1)(u-2)/3! * D^3y0 + ...
- *
- * where D^k y0 ("Delta^k y0") is the k-th forward difference, read off
- * the TOP-LEFT-TO-BOTTOM-RIGHT diagonal of the forward difference table
- * (Table 3 on the slide).
- *
- * POLYNOMIAL RETRIEVAL:
- * The formula above is a polynomial in u, and u itself is a LINEAR
- * function of x: u(x) = (1/h)*x - x0/h. So each product term
- * u(u-1)(u-2)...(u-k+1) is really a product of k linear factors in x,
- * of the form (a*x + b). Multiplying these out with plain polynomial
- * multiplication (see multiplyLinear/addScaled below) gives the full
- * expanded polynomial P(x) = c0 + c1*x + c2*x^2 + ... -- the same
- * polynomial the forward formula evaluates, just in standard form so
- * it can be reused, differentiated, plotted, etc. without redoing the
- * whole table lookup.
- */
+*/ 
 
-// ---- polynomial helpers (ascending powers of x: poly[i] = coeff of x^i) ----
-
-// multiply poly(x) by the linear factor (a*x + b)
 vector<double> multiplyLinear(vector<double> &poly, double a, double b)
 {
     vector<double> result(poly.size() + 1, 0.0);

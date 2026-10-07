@@ -1,116 +1,83 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 int n;
 
-int GaussJordan(vector<vector<double>> &AugMat, vector<double> &X)
+double fact(int x)
 {
-    for (int j = 0; j < n; j++)
-    {
-        double pivot = AugMat[j][j];
-        for (int k = 0; k <= n; k++)
-            AugMat[j][k] /= pivot;
+     double ans = 1.0;
 
-        for (int i = 0; i < n; i++)
-        { 
-            if(i==j) continue; 
-
-            double ratio = AugMat[i][j] / AugMat[j][j];
-            for (int k = 0; k <= n; k++)
-            {
-                AugMat[i][k] = AugMat[i][k] - ratio * AugMat[j][k];
-            }
-        }
-    }
-
-    int rankA = 0;
-    int rankAB = 0;
-
-    for (int i = 0; i < n; i++)
-    {
-        bool nonzeroA = false;
-        bool nonzeroAB = false;
-
-        for (int j = 0; j < n; j++)
-        {
-            if (abs(AugMat[i][j]) > 1e-9)
-            {
-                nonzeroA = true;
-                nonzeroAB = true;
-                break;
-            } 
-            
-        }
-        if(fabs(AugMat[i][n])>1e-9) nonzeroAB = true ;
-            if (nonzeroA)
-                rankA++;
-            if (nonzeroAB)
-                rankAB++;
-    }
-
-    if (rankA < rankAB)
-    {
-        return 0;
-    }
-    else if (rankA == rankAB && rankA < n)
-    {
-        return -1;
-    }
-    else
-    {
-        for (int i = 0; i < n; i++)
-            X[i] = AugMat[i][n];
-        return 1;
-    }
+     for (int i = 2; i <= x; i++)
+     {
+          ans *= i;
+     }
+     return ans;
 }
 
-void print(vector<vector<double>> &mat)
+double divided(double target, vector<double> &x, vector<double> &y, vector<vector<double>> &diff)
 {
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j <= n; j++)
-        {
-            double x = mat[i][j] ; 
-            if(fabs(x)<1e-9) x = 0.0 ;
-            cout << setw(3) << setprecision(3) << x  << " ";
-        }
-        cout << endl;
-    }
+
+     for(int i=0;i<n;i++) diff[i][0]=y[i] ; 
+
+     for(int j=1;j<n;j++) {
+          for(int i=0;i<n-j;i++) {
+               diff[i][j] = (diff[i+1][j-1]-diff[i][j-1])/(x[i+j]-x[i]) ;
+          }
+     } 
+
+     cout << "\nDivided Difference Table:\n";
+
+     for(int i=0;i<n;i++) {
+          cout << setw(10) << x[i] << setw(12) << y[i] ;
+          for(int j=1;j<n-i;j++) {
+               cout << setw(12) << diff[i][j] ;
+          } cout << endl ;
+     } cout << endl ;
+
+     double result = diff[0][0] ; 
+     double term = 1.0 ; 
+
+     for(int i=1;i<n;i++) {
+        term *= (target-x[i-1]);
+        result += (term/fact(i))*diff[0][i] ;
+     }
+
+     cout << "result : " << result << endl ;
+ 
+return result ;
 }
 
 int main()
 {
 
-    cout << "Enter n : ";
-    cin >> n;
+     cout << "Enter the number of data points: ";
+     cin >> n;
 
-    vector<vector<double>> AugMat(n, vector<double>(n + 1));
+     cout << "Enter the X values : ";
+     vector<double> x(n, 0), y(n, 0);
 
-    vector<double> X(n);
+     for (int i = 0; i < n; i++)
+     {
+          cin >> x[i];
+     }
+     cout << "Enter the corresponding y values : ";
+     for (int i = 0; i < n; i++)
+     {
+          cin >> y[i];
+     }
 
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j <= n; j++)
-        {
-            cin >> AugMat[i][j];
-        }
-    }
+     vector<vector<double>> diff(n, vector<double>(n, 0.0));
 
-    int sts = GaussJordan(AugMat, X);
+     double target;
+     cout << "Enter the target x value : ";
+     cin >> target;
 
-    print(AugMat);
+     double res1 = divided(target, x, y, diff);
 
-    if (sts == -1)
-        cout << "INFINITE SOLKUTIO" << endl;
-    else if (sts == 0)
-        cout << "NO SOLN\n";
-    else
-    {
-        cout << "UNIQUE SOLLUTION\n";
-        for (int i = 0; i < n; i++)
-            cout << setw(3) << setprecision(3) << X[i] << " ";
-        cout << endl;
-    }
-
-    return 0;
+     return 0;
 }
+
+/*
+
+4 3 5 7 9 180 150 120 90 4
+
+*/

@@ -1,29 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
- * NEWTON'S DIVIDED DIFFERENCE INTERPOLATION
- * -----------------------------------------------------------------------
- * Works for EQUAL or UNEQUAL x spacing (unlike Forward/Backward, which
- * both require equally spaced x). The slide's own worked example even
- * feeds the points in a non-sorted x order (1, 4, 6, 5) -- the method
- * doesn't care, it just uses whatever order the points are given in.
- *
- *   f[xi]          = f(xi)
- *   f[xi, xj]       = ( f(xi) - f(xj) ) / (xi - xj)
- *   f[xi, xj, xk]   = ( f[xi,xj] - f[xj,xk] ) / (xi - xk)
- *   ... and so on, recursively.
- *
- *   f(x) = f(x0) + (x-x0)*f[x1,x0]
- *                + (x-x0)(x-x1)*f[x2,x1,x0]
- *                + (x-x0)(x-x1)(x-x2)*f[x3,x2,x1,x0] + ...
- *
- * POLYNOMIAL RETRIEVAL: this method is already the most natural of the
- * three to retrieve as a plain polynomial in x, since each term is
- * already a literal product of (x - xi) factors -- no u/v substitution
- * needed like Forward/Backward. We just multiply those factors out with
- * the same multiplyLinear/addScaled helpers.
- */
 
 vector<double> multiplyLinear(vector<double> &poly, double a, double b)
 {
